@@ -98,7 +98,7 @@ object ChallengeProblems {
     -Returns - Option[Int]
  */
   def catsAgeOption(optionalAge: Option[Int]): Option[Int] = {
-
+    if (optionalAge.isEmpty) None else Some(optionalAge.get * 4)
   }
 
   /*
@@ -106,11 +106,17 @@ object ChallengeProblems {
   Params - List
   Returns - Int
    */
+  def minimum(intList: List[Int]): Int = {
+    intList.reduceLeft(_ min _)
+  }
 
   /*
   12. Same as question 11, but this time you are given a list of Option[Ints], returns the minimum of the Ints provided.
   If no ints are provided, return None.
  */
+  def minimumOption(optionalIntList: List[Option[Int]]): Option[Int] = {
+    if (optionalIntList.forall(_.isDefined)) Some(optionalIntList.flatten.reduceLeft(_ min _)) else None
+  }
 
 
 
