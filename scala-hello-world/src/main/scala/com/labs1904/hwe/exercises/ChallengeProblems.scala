@@ -98,7 +98,7 @@ object ChallengeProblems {
     -Returns - Option[Int]
  */
   def catsAgeOption(optionalAge: Option[Int]): Option[Int] = {
-
+    optionalAge.get * 4
   }
 
   /*

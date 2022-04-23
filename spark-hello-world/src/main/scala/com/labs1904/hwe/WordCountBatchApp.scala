@@ -22,8 +22,9 @@ object WordCountBatchApp {
       sentences.printSchema
 
       // TODO: implement me
-
-      //val counts = ???
+      val splitSentences = sentences.flatMap(splitSentenceIntoWords)
+      val countWords = splitSentences.groupBy(col("value")).count().sort(col("count").desc)
+      countWords.show()
 
       //counts.foreach(wordCount=>println(wordCount))
     } catch {
@@ -31,8 +32,9 @@ object WordCountBatchApp {
     }
   }
 
-  // TODO: implement this function
   // HINT: you may have done this before in Scala practice...
-  def splitSentenceIntoWords(sentence: String): Array[String] = ???
+  def splitSentenceIntoWords(sentence: String): Array[String] = {
+    sentence.split(' ').map(_.replaceAll("[,.!?:;]", "").trim.toLowerCase)
+  }
 
 }
