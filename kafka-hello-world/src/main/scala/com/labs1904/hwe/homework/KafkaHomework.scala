@@ -29,18 +29,22 @@ object KafkaHomework {
 
     //TODO: What does this line mean? Write your answer in a comment below
     consumer.subscribe(Arrays.asList(Topic))
+    // Subscribes to the Topic assigned above, allows streaming records from specified Topic
 
     while (true) {
       // TODO: Change this to be every 5 seconds
-      val duration: Duration = Duration.ofMillis(100)
+      val duration: Duration = Duration.ofMillis(5000)
 
       //TODO: Look up the ConsumerRecords class below, in your own words what is the class designed to do?
       val records: ConsumerRecords[String, String] = consumer.poll(duration)
+      // ConsumerRecords contains a list of records in a specified topic and partition
 
       records.forEach((record: ConsumerRecord[String, String]) => {
         // Retrieve the message from each record
         //TODO: Describe why we need the .value() at the end of record
         val message = record.value()
+        // The ConsumerRecord object contains other information about the record apart from it's actual message,
+        // so we use .value() to retrieve the message contents
 
         //TODO: If you were given the values for the bootstrap servers in class, run the app with the green play button and make sure it runs successfully. You should see message(s) printing out to the screen
         println(s"Message Received: $message")

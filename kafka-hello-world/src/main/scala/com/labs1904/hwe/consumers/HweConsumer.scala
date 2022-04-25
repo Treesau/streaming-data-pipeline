@@ -11,6 +11,9 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import java.time.Duration
 import java.util.{Arrays, Properties, UUID}
 
+case class RawUser(id: Int, name: String, email: String)
+case class EnrichedUser(id: Int, numberAsWord: String, name: String, email: String, hweDeveloper: String)
+
 object HweConsumer {
   val BootstrapServer : String = "CHANGEME"
   val consumerTopic: String = "question-1"
@@ -49,6 +52,21 @@ object HweConsumer {
         val message = record.value()
         println(s"Message Received: $message")
         // TODO: Add business logic here!
+        // Split message lines by comma
+        val splitMsg = message.split(',')
+        val (id, name, email) = (splitMsg(0).toInt, splitMsg(1), splitMsg(2))
+
+        // Create instance of RawUser
+        val rawUser = RawUser(id, name, email)
+
+        // EnrichedUser
+        val hweDev = "Trenton Sauer"
+        val enrichedUser = EnrichedUser(id, Util.mapNumberToWord(rawUser.id), name, email, hweDev)
+
+        // Convert enriched user to comma separated message and write to Kafka
+        val enrichedUserString = s"${enrichedUser.id}, ${enrichedUser.numberAsWord}, ${enrichedUser.name}, ${enrichedUser.email}, ${enrichedUser.hweDeveloper}"
+        val enrichedUserMessage = new ProducerRecord[String, String](producerTopic, enrichedUserString)
+        producer.send(enrichedUserMessage)
 
       })
     }

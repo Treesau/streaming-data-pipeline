@@ -21,6 +21,7 @@ reword confusing descriptions in a way that makes sense to you.
 #### What problem does Spark help solve? Use a specific use case in your answer 
 * Helpful resource: [Apache Spark Use Cases](https://www.toptal.com/spark/introduction-to-apache-spark)
 * [Overivew of Apache Spark](https://www.youtube.com/watch?v=znBa13Earms&t=42s)
+Spark allows significantly faster batch processing than Hadoop
 
 #### What is Apache Spark?
 * Helpful resource: [Spark Overview](https://www.youtube.com/watch?v=ymtq8yjmD9I) 
